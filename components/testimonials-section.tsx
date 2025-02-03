@@ -1,11 +1,12 @@
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function TestimonialsCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const carouselRef = useRef<HTMLDivElement>(null);
   const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const testimonials = [
     {
@@ -36,28 +37,27 @@ export default function TestimonialsCarousel() {
     }
   ];
 
-  const x = useMotionValue(0);
-  const containerWidth = useRef(0);
-
   // Reset auto-play timeout
   const resetAutoPlayTimeout = () => {
+    // Clear any existing timeout
     if (autoPlayTimeoutRef.current) {
       clearTimeout(autoPlayTimeoutRef.current);
     }
 
+    // Set a new timeout to return to auto-play after 1 minute
     autoPlayTimeoutRef.current = setTimeout(() => {
       setIsAutoPlaying(true);
     }, 60000); // 1 minute
   };
 
-  // Automatic sliding effect
+  // Auto-play logic
   useEffect(() => {
     let interval: NodeJS.Timeout;
     
     if (isAutoPlaying) {
       interval = setInterval(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-      }, 5000); // Change slide every 5 seconds
+        setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+      }, 5000);
     }
 
     return () => {
@@ -65,82 +65,113 @@ export default function TestimonialsCarousel() {
     };
   }, [isAutoPlaying, testimonials.length]);
 
-  // Measure container and set up drag constraints
-  useEffect(() => {
-    if (carouselRef.current) {
-      containerWidth.current = carouselRef.current.offsetWidth;
-    }
-  }, []);
-
-  // Handle drag end to determine next slide
-  const handleDragEnd = (
-    event: MouseEvent | TouchEvent | PointerEvent, 
-    info: { offset: { x: number }; velocity: { x: number } }
-  ) => {
+  // Navigate to previous slide
+  const goToPrevious = () => {
     // Stop auto-play
     setIsAutoPlaying(false);
 
-    // Calculate drag threshold (1/4 of container width)
-    const dragThreshold = containerWidth.current / 4;
+    // Navigate to previous slide
+    setCurrentIndex((prev) => 
+      prev === 0 ? testimonials.length - 1 : prev - 1
+    );
 
-    // Determine direction based on drag distance and velocity
-    if (info.offset.x < -dragThreshold || info.velocity.x < -500) {
-      // Drag left - go to next slide
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    } else if (info.offset.x > dragThreshold || info.velocity.x > 500) {
-      // Drag right - go to previous slide
-      setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-    }
+    // Reset auto-play timeout
+    resetAutoPlayTimeout();
+  };
+
+  // Navigate to next slide
+  const goToNext = () => {
+    // Stop auto-play
+    setIsAutoPlaying(false);
+
+    // Navigate to next slide
+    setCurrentIndex((prev) => 
+      (prev + 1) % testimonials.length
+    );
+
+    // Reset auto-play timeout
+    resetAutoPlayTimeout();
+  };
+
+  // Navigate to specific slide
+  const goToSlide = (index: number) => {
+    // Stop auto-play
+    setIsAutoPlaying(false);
+
+    // Go to specific slide
+    setCurrentIndex(index);
 
     // Reset auto-play timeout
     resetAutoPlayTimeout();
   };
 
   return (
-    <section id="testimonials-section" className="py-16 text-center relative overflow-hidden">
+    <section className="py-16 text-center relative overflow-hidden">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-white mb-8">What Students Say</h2>
-        <div ref={carouselRef} className="relative overflow-hidden">
-          <motion.div 
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.5}
-            onDragEnd={handleDragEnd}
-            animate={{ 
-              x: -currentIndex * (carouselRef.current?.offsetWidth || 0)
-            }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="flex cursor-grab active:cursor-grabbing"
+        
+        <div 
+          ref={containerRef}
+          className="relative overflow-hidden max-w-xl mx-auto"
+        >
+          <div 
+            className="relative w-full overflow-hidden"
+            style={{ height: 'auto' }}
           >
-            {testimonials.map((testimonial, index) => (
+            <AnimatePresence mode="wait">
               <motion.div
-                key={index}
-                className="min-w-full px-4 flex-shrink-0"
-                style={{ width: '100%' }}
+                key={currentIndex}
+                initial={{ opacity: 0, x: 300 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -300 }}
+                transition={{ 
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30
+                }}
+                className="w-full px-4"
               >
-                <div 
-                  className="bg-slate-700 rounded-lg p-6 shadow-lg hover:bg-slate-600 transition-colors mx-auto max-w-md flex flex-col justify-center items-center"
-                >
-                  <p className="text-slate-300 mb-4 text-center">"{testimonial.quote}"</p>
+                <div className="bg-slate-700 rounded-lg p-6 shadow-lg hover:bg-slate-600 transition-colors mx-auto max-w-md flex flex-col justify-center items-center">
+                  <p className="text-slate-300 mb-4 text-center">"{testimonials[currentIndex].quote}"</p>
                   <div className="flex flex-col items-center">
-                    <p className="font-semibold text-white text-center">{testimonial.name}</p>
-                    <p className="text-slate-400 text-center">{testimonial.role}</p>
+                    <p className="font-semibold text-white text-center">{testimonials[currentIndex].name}</p>
+                    <p className="text-slate-400 text-center">{testimonials[currentIndex].role}</p>
                   </div>
                 </div>
               </motion.div>
-            ))}
-          </motion.div>
+            </AnimatePresence>
+          </div>
 
-          {/* Progress Dots */}
-          <div className="flex justify-center mt-4">
-            {testimonials.map((_, index) => (
-              <div
-                key={index}
-                className={`h-2 w-2 mx-1 rounded-full ${
-                  index === currentIndex ? 'bg-sky-500' : 'bg-slate-600'
-                }`}
-              />
-            ))}
+          {/* Navigation Container */}
+          <div className="flex justify-center items-center mt-4 space-x-4">
+            {/* Previous Button */}
+            <button 
+              onClick={goToPrevious}
+              className="bg-slate-600 hover:bg-slate-500 p-2 rounded-full transition-colors"
+            >
+              <ChevronLeft className="h-6 w-6 text-sky-500" />
+            </button>
+
+            {/* Progress Dots */}
+            <div className="flex space-x-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`h-2 w-2 rounded-full transition-colors ${
+                    index === currentIndex ? 'bg-sky-500' : 'bg-slate-600'
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* Next Button */}
+            <button 
+              onClick={goToNext}
+              className="bg-slate-600 hover:bg-slate-500 p-2 rounded-full transition-colors"
+            >
+              <ChevronRight className="h-6 w-6 text-sky-500" />
+            </button>
           </div>
         </div>
       </div>
