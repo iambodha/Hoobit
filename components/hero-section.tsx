@@ -4,12 +4,12 @@ import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-w
 import { Button } from "./ui/button";
 
 export function HeroSection() {
-  const scrollToFeatures = () => {
-    const featuresSection = document.getElementById("features-section");
-    if (featuresSection) {
-      featuresSection.scrollIntoView({ behavior: "smooth" });
+  const scrollToSection = (id: string) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
     }
-  };
+  };;
 
   return (
     <BackgroundBeamsWithCollision>
@@ -25,7 +25,7 @@ export function HeroSection() {
         </h2>
         <div className="flex flex-col sm:flex-row justify-center gap-4 w-[60%] mx-auto py-2">
           <button
-            onClick={scrollToFeatures}
+            onClick={() => scrollToSection("example-section")}
             className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
           >
             <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
@@ -34,6 +34,7 @@ export function HeroSection() {
             </span>
           </button>
           <button
+            onClick={() => window.location.href = "https://forms.gle/S9r6AiTKSEu86FEH9"}
             className="inline-flex h-12 font-semibold animate-shimmer items-center justify-center rounded-full border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-16 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
           >
             Sign Up

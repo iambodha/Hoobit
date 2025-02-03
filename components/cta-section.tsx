@@ -13,19 +13,14 @@ function CTASection() {
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
         <Button 
-          onClick={() => {
-            const featuresSection = document.getElementById("features-section");
-            if (featuresSection) {
-              featuresSection.scrollIntoView({ behavior: "smooth" });
-            }
-          }} 
+          onClick={() => window.location.href = "https://forms.gle/fRZ2urgo2VZH3gLh8"}
           className="bg-sky-500 hover:bg-sky-400 text-white font-semibold h-12 px-8 rounded-lg transition-colors"
         >
           Start exploring your passions
         </Button>
 
         <Button 
-            onClick={() => window.location.href = "https://example.com"}
+            onClick={() => window.location.href = "https://forms.gle/eoou3L5RzkhaUA9y6"}
           variant="outline" 
           className="text-black border-slate-600 hover:bg-slate-200 h-12 px-8 rounded-lg transition-colors"
           >

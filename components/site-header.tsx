@@ -28,7 +28,7 @@ function SiteHeader() {
         </div>
         <div className="flex items-center space-x-4">
           <Button
-            onClick={() => window.location.href = "https://forms.gle/wZyddZNzh7mgcXgN9"}
+            onClick={() => window.location.href = "https://forms.gle/fRZ2urgo2VZH3gLh8"}
             variant="ghost" size="lg" className="px-6 py-3 text-slate-200 hover:text-slate-900 transition-colors">
             Sign Up
           </Button>

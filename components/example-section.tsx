@@ -14,7 +14,7 @@ function ExampleSection() {
 
 
   return (
-    <section className="py-10 sm:py-20 md:py-32">
+    <section className="py-10 sm:py-20 md:py-32" id="example-section">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:grid md:grid-cols-2 gap-12 md:gap-12 items-center">
           <motion.div

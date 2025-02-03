@@ -8,7 +8,7 @@ function SiteFooter() {
           Made with ❤️ by the Hoobit team
         </p>
           <p className="text-sm text-slate-400">
-            © 2024 Hoobit. All rights reserved.
+            © 2025 Hoobit. All rights reserved.
           </p>
       </div>
     </footer>
