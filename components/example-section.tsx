@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, {useState} from "react";
+import React from "react";
 import { Button } from "./ui/button";
 
 function ExampleSection() {
@@ -12,13 +12,13 @@ function ExampleSection() {
     }
   };
 
-
   return (
     <section className="py-10 sm:py-20 md:py-32" id="example-section">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:grid md:grid-cols-2 gap-12 md:gap-12 items-center">
+          {/* Left-side graphic: Hidden on small screens */}
           <motion.div
-            className=" bg-slate-800 p-6 md:p-6 shadow-4xl backdrop-blur bg-transparent bg-slate-200 mt-8 md:mt-0 hidden lg:block"
+            className="hidden md:block bg-slate-800 p-6 md:p-6 shadow-4xl backdrop-blur bg-transparent bg-slate-200 mt-8 md:mt-0"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
@@ -38,14 +38,19 @@ function ExampleSection() {
               </defs>
             </svg>
           </motion.div>
-          <div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white text-center mb-4 md:mb-6">
-            Learn from peers who share your passions.
+
+          {/* Right-side content */}
+          <div className="text-center flex flex-col items-center">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4 md:mb-6">
+              Learn from peers who share your passions.
             </h2>
-            <p className="text-base sm:text-lg text-slate-300 mb-6 md:mb-8">
-            We’re a nonprofit run by teenagers with a mission to help other teens explore their passions—completely for free. Our peer-led learning model connects students to share and teach each other in subjects they love, from coding and art to music and more. It's a fun, engaging, and flexible way to discover new interests, allowing peers to share their passions with others.
+            <p className="text-base sm:text-lg text-slate-300 mb-6 md:mb-8 max-w-md">
+              We’re a nonprofit run by teenagers with a mission to help other teens explore their passions—completely for free. Our peer-led learning model connects students to share and teach each other in subjects they love, from coding and art to music and more.
             </p>
-            <Button onClick={() => scrollToSection("features-section")} className="bg-sky-500 hover:bg-sky-400 text-white font-semibold h-10 md:h-12 px-4 md:px-6 rounded-lg transition-colors">
+            <Button 
+              onClick={() => scrollToSection("features-section")} 
+              className="bg-sky-500 hover:bg-sky-400 text-white font-semibold h-10 md:h-12 px-4 md:px-6 rounded-lg transition-colors mx-auto"
+            >
               Browse hobbies
             </Button>
           </div>
