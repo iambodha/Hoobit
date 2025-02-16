@@ -12,7 +12,10 @@ const fontSans = FontSans({
 
 export const metadata: Metadata = {
   title: "Hoobit",
-  description: "Hoobit Python Programming",
+  description: "Exploring your passions",
+  icons: {
+    icon: '/logo-tab.png',
+  },
 };
 
 export default function RootLayout({
