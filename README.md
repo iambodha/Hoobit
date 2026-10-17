@@ -1,83 +1,64 @@
 # Hoobit
 
-Welcome to **Hoobit** – Discover your new passion for free! 🌟✨
+A student-led community for free peer learning and student hackathons. Hoobit brings students together to explore interests, teach one another, and build projects—from Python and Scratch to 3D modelling, game development, and music.
 
-Hoobit is a nonprofit initiative run by teenagers, empowering other teens to explore their passions through peer-led learning. With engaging, interactive, and flexible programs, we connect students to share and teach each other in areas they love, from coding and 3D modeling to music and more.
+This repository contains the community website. It explains the learning tracks, shares existing student feedback, and links to learner/mentor interest forms and our hackathon work. It is a public information site; accounts, course enrollment, and a learning-management backend are not implemented here.
 
----
+**[Hackathon project](https://github.com/iambodha/Hoobit_Hacks_2026)** · **[Python teaching resources](https://github.com/iambodha/Hoobit-Python-Resources)** · **[Learner interest form](https://forms.gle/fRZ2urgo2VZH3gLh8)** · **[Mentor interest form](https://forms.gle/eoou3L5RzkhaUA9y6)**
 
-## Key Features 🎉
+## About the project
 
-### What We Offer
+The site supports a community built around students sharing what they enjoy. Peer-led learning and hackathons are complementary: one helps students explore a subject, while the other gives them a chance to build and share something with others.
 
-#### 1. Programming via Python 🐍
-- **Geared toward beginners**.
-- Learn the basics of Python programming. 💻
-- Create projects ranging from games to tools.
-- Peer-led guidance from students passionate about coding.
+The website introduces the learning tracks, presents student feedback, and gives learners and prospective mentors a clear way to express interest. Hackathon links connect the community introduction to its project work.
 
-#### 2. 3D Modeling 🎨
-- Get hands-on experience with 3D modeling tools. 🛠️
-- Instant feedback from tutors for interactive learning.
-- Engage in exciting projects to develop your modeling skills. 🌟
+## Run locally
 
-#### 3. Scratch Programming 🧩
-- **Ideal for middle school and primary students**.
-- Learn programming concepts in a fun, interactive way. 🎮
-- Build games and animations in a playful environment. 😄
+Node.js 20+ and npm.
 
-#### 4. Game Development 🎮
-- Use Unity to start building your own games. 🕹️
-- **Designed for students with a basic understanding of programming**.
-- Covers game design, mechanics, and turning ideas into playable experiences. 🚀
+```sh
+npm ci
+npm run dev
+```
 
-#### 5. Music 🎵
-- Explore your musical talents, from creating beats to mastering instruments. 🎤
-- Learn from passionate peers in a supportive environment. 🎶
-- Develop your skills creatively and collaboratively. 🌈
+Open `http://localhost:3000`.
 
-#### 6. More Coming Soon 🚧
-- Stay tuned for new fields of learning and opportunities to discover fresh passions. 🎯
+```sh
+npm run typecheck
+npm run build
+```
 
----
+The application uses Next.js, React, TypeScript, Tailwind CSS, Radix UI, Lucide, and Framer Motion. Inter is bundled through Fontsource, so builds do not require a Google Fonts download. npm's `package-lock.json` is the authoritative dependency lockfile.
 
-## What Students Say 💬
+## Structure
 
-> Brandon – Student at JFK, Berlin, Germany:  
-> "The teacher is very experienced and can handle students with memory loss. The lessons not only are precise and cover all the targeted material within the time frame but also leave room for time to revise."
+| Path | Purpose |
+| --- | --- |
+| `app/page.tsx` | Community page composition, including hackathon content |
+| `components/site-header.tsx` | Desktop/mobile navigation and menu state |
+| `components/hero-section.tsx`, `features-section.tsx` | Introduction and learning tracks |
+| `components/testimonials-section.tsx` | Existing student quotes, with labelled manual controls |
+| `components/cta-section.tsx` | Learner and mentor interest links |
+| `lib/site.ts` | Shared public destinations and base-path-aware asset paths |
 
-> [Name TBD] – Student at Boston, USA:  
-> "Amazing idk, they still sending this one."
+Learner signup links now use the same existing form destination throughout the site. The mobile menu opens/closes, closes after navigation, and supports Escape. Student quotes stay visible until the reader changes them. Decorative motion respects reduced-motion preferences.
 
-> [Name TBD] – Student at Mumbai, India:  
-> "They'll send this later."
+## Static deployment
 
----
+`npm run build` exports the site into `out/`. The existing GitHub Pages workflow deploys `main`; PR checks build the site without deploying it. For project Pages hosting:
 
-## Ready to Explore Your Passions? 🌍
+```sh
+NEXT_PUBLIC_BASE_PATH=/Hoobit npm run build
+```
 
-Join a community of passionate teen learners for free! Dive into exciting subjects, discover new interests, and connect with peers who share and teach what they love. 👫
+On PowerShell, set `$env:NEXT_PUBLIC_BASE_PATH="/Hoobit"` before running the build. Leave the variable unset for root-domain hosting. The logo and favicon use the same base path as the application.
 
----
+The repository does not declare a verified canonical live domain. The forms and event/resources links are existing public project destinations; check that the intended forms are accepting responses before a campaign. No signup was submitted during this maintenance pass.
 
-## Technical Details 🛠️
+## Contributing
 
-Hoobit is built using:
+Keep community information factual and links current. Confirm permission before adding testimonials or personal details. Check the page on a narrow screen, test navigation with a keyboard, and run the type check and production build before opening a PR.
 
-- **HTML** 🌐
-- **CSS** 🎨
-- **Next.js** 🚀
-- **Animations** 🎥 for a smooth and engaging user experience.
+## License
 
----
-
-## How to Get Started 🌟
-
-1. Visit our website at [Hoobit](#).
-2. Sign up for a free account. 📝
-3. Browse available learning tracks and enroll in the ones you’re passionate about. 📚
-4. Connect with peers and start exploring your interests today! 🤝
-
----
-
-Let’s embark on this journey of learning and passion together. Discover your interests, learn new skills, and inspire others with **Hoobit**! 🌈✨
+Repository code uses [Apache License 2.0](LICENSE). Bundled fonts and dependencies retain their own licenses. Existing community quotes and branding remain attributed to their contributors.

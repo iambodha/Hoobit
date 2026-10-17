@@ -15,7 +15,7 @@ function FeaturesSection() {
           {[
             {
               icon: <Code className="h-8 w-8 text-sky-500" />,
-              title: "Programming via python",
+              title: "Programming with Python",
               description:
                 "Geared toward beginners, this track helps you learn the basics of Python programming. Use these fundamentals to create projects you’re passionate about, from games to tools, guided by peers who love programming.",
             },
@@ -23,7 +23,7 @@ function FeaturesSection() {
               icon: <Box className="h-8 w-8 text-sky-500" />,
               title: "3D Modelling",
               description:
-                "Get instant feedback on your code and learn interactively with our tutors, making each session more engaging and effective.",
+                "Explore digital modelling through practical projects and feedback from peers who enjoy creating in 3D.",
             },
             {
               icon: <Braces className="h-8 w-8 text-sky-500" />,
@@ -45,15 +45,15 @@ function FeaturesSection() {
             },
             {
               icon: <ChevronRight className="h-8 w-8 text-sky-500" />,
-              title: "More Coming Soon",
+              title: "Student Hackathons",
               description:
-                "Stay tuned for more exciting fields of learning to explore—new passions are on the way!",
+                "Meet other student builders, work on ideas together, and share what you make through our hackathons.",
             },
           ].map((feature, index) => (
             <motion.div
               key={index}
               className="bg-slate-800 rounded-lg shadow-lg p-6 hover:bg-slate-700 transition-colors"
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >

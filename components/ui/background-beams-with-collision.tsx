@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import React, { useRef, useState, useEffect } from "react";
 
 export const BackgroundBeamsWithCollision = ({
@@ -10,6 +10,7 @@ export const BackgroundBeamsWithCollision = ({
   children: React.ReactNode;
   className?: string;
 }) => {
+  const reducedMotion = useReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
   const parentRef = useRef<HTMLDivElement>(null);
 
@@ -75,7 +76,7 @@ export const BackgroundBeamsWithCollision = ({
         className
       )}
     >
-      {beams.map((beam) => (
+      {!reducedMotion && beams.map((beam) => (
         <CollisionMechanism
           key={beam.initialX + "beam-idx"}
           beamOptions={beam}
