@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    --font-sans: "Inter Variable";
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -66,4 +67,10 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+html { scroll-behavior: smooth; scroll-padding-top: 7rem; }
+::selection { background: #bae6fd; color: #0f172a; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }

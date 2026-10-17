@@ -1,74 +1,48 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import { Button } from "./ui/button";
-import { Search, Menu } from "lucide-react";
-import Image from "next/image";
+import { useEffect, useState } from 'react';
+import { Menu, X } from 'lucide-react';
+import Image from 'next/image';
+import { Button } from './ui/button';
+import { assetPath, siteLinks } from '@/lib/site';
 
-function SiteHeader() {
+const sections = [
+  ['#features-section', 'Learning'],
+  ['#hackathons-section', 'Hackathons'],
+  ['#testimonials-section', 'Student voices'],
+] as const;
+
+export default function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [windowWidth, setWindowWidth] = useState<number>(0);
-
-  const scrollToSection = (id: string) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const handleResize = () => setWindowWidth(window.innerWidth);
-
-      setWindowWidth(window.innerWidth);
-      window.addEventListener("resize", handleResize);
-
-      return () => {
-        window.removeEventListener("resize", handleResize);
-      };
-    }
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsMenuOpen(false);
+    };
+    document.addEventListener('keydown', closeOnEscape);
+    return () => document.removeEventListener('keydown', closeOnEscape);
   }, []);
 
-  const isMobileView = windowWidth < 768;
-
   return (
-    <header className="sticky top-0 z-50 backdrop-blur border-none rounded-full py-5 px-4">
-      <nav className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 border-slate-900 rounded-full border shadow-xl border-gray-800">
-        <div className="flex items-center">
-          <Image
-            src="/logo.png"
-            alt="Hoobit Logo"
-            width={120}
-            height={40}
-            className="cursor-pointer"
-            onClick={() => scrollToSection("hero-section")}
-          />
-        </div>
-
-        {!isMobileView && (
-          <div className="flex-1 justify-center space-x-8 hidden md:flex">
-            <button onClick={() => scrollToSection("features-section")} className="text-slate-400 hover:text-white transition-colors">Features</button>
-            <button onClick={() => scrollToSection("testimonials-section")} className="text-slate-400 hover:text-white transition-colors">Testimonials</button>
-            <button onClick={() => scrollToSection("cta-section")} className="text-slate-400 hover:text-white transition-colors">Get Started</button>
+    <header className="sticky top-0 z-50 px-4 py-4">
+      <nav aria-label="Main navigation" className="container mx-auto rounded-3xl border border-slate-700 bg-slate-950/95 px-4 sm:px-6">
+        <div className="flex min-h-16 items-center justify-between gap-3">
+          <a href="#hero-section" onClick={() => setIsMenuOpen(false)} aria-label="Hoobit home" className="shrink-0 rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-400">
+            <Image src={assetPath('/logo.png')} alt="Hoobit" width={120} height={40} />
+          </a>
+          <div className="hidden items-center gap-6 md:flex">
+            {sections.map(([href, label]) => <a key={href} href={href} className="rounded py-3 text-sm text-slate-300 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-400">{label}</a>)}
           </div>
-        )}
-
-        <div className="flex items-center space-x-4">
-          <Button
-            onClick={() => window.location.href = "https://forms.gle/fRZ2urgo2VZH3gLh8"}
-            variant="ghost" size="lg" className="px-6 py-3 text-slate-200 hover:text-slate-900 transition-colors">
-            Sign Up
-          </Button>
-
-          {!isMobileView && (
-            <Button variant="ghost" size="icon" className="md:hidden text-slate-400 hover:text-slate-900 transition-colors" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              <Menu className="h-6 w-6" />
+          <div className="flex items-center gap-2">
+            <Button asChild variant="ghost" className="text-slate-200 hover:bg-slate-800 hover:text-white"><a href={siteLinks.learners}>Sign up</a></Button>
+            <Button variant="ghost" size="icon" aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={isMenuOpen} aria-controls="mobile-navigation" className="md:hidden text-white hover:bg-slate-800 hover:text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              {isMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
             </Button>
-          )}
+          </div>
         </div>
+        {isMenuOpen && <div id="mobile-navigation" className="flex flex-col border-t border-slate-700 py-3 md:hidden">
+          {sections.map(([href, label]) => <a key={href} href={href} onClick={() => setIsMenuOpen(false)} className="rounded px-3 py-3 text-slate-200 hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-400">{label}</a>)}
+        </div>}
       </nav>
     </header>
   );
 }
-
-export default SiteHeader;
