@@ -45,7 +45,7 @@ function ExampleSection() {
               Learn from peers who share your passions.
             </h2>
             <p className="text-base sm:text-lg text-slate-300 mb-6 md:mb-8 max-w-md">
-              We’re a nonprofit run by teenagers with a mission to help other teens explore their passions—completely for free. Our peer-led learning model connects students to share and teach each other in subjects they love, from coding and art to music and more.
+              Hoobit is a student-led community built around sharing what we love. We connect students through free peer-led learning, from coding and 3D modelling to music, and organize hackathons where students can build and share projects together.
             </p>
             <Button 
               onClick={() => scrollToSection("features-section")} 

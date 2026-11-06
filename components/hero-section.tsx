@@ -1,46 +1,39 @@
 // HeroSection.js
 import React from "react";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
-import { Button } from "./ui/button";
+import { siteLinks } from "@/lib/site";
 
 export function HeroSection() {
-  const scrollToSection = (id: string) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  };;
-
   return (
-    <BackgroundBeamsWithCollision>
+    <section id="hero-section" aria-labelledby="hero-title"><BackgroundBeamsWithCollision>
       <div className="mt-0 flex flex-col justify-center gap-4">
-        <h2 className="text-4xl relative w-[80%] mx-auto z-20 md:text-4xl lg:text-7xl font-bold text-center text-white font-sans tracking-tight">
+        <h1 id="hero-title" className="text-4xl relative w-[92%] max-w-6xl mx-auto z-20 md:text-4xl lg:text-7xl font-bold text-center text-white font-sans tracking-tight">
           Discover your{" "}
           <div className="relative mx-auto inline-block w-max [filter:drop-shadow(0px_1px_3px_rgba(27,_37,_80,_0.14))]">
-            <div className="relative bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 py-0">
+            <div className="relative text-fuchsia-300 py-0">
               <span className="">new passion</span>
             </div>
           </div>
           {" "}for free
-        </h2>
-        <div className="flex flex-col sm:flex-row justify-center gap-4 w-[60%] mx-auto py-2">
-          <button
-            onClick={() => scrollToSection("example-section")}
+        </h1>
+        <div className="flex flex-col sm:flex-row justify-center gap-4 w-[90%] max-w-xl mx-auto py-2">
+          <a
+            href="#example-section"
             className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
           >
             <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-            <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-16 py-5 text-sm font-medium text-white backdrop-blur-3xl">
+            <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-8 py-5 text-sm font-medium text-white backdrop-blur-3xl">
               Learn More
             </span>
-          </button>
-          <button
-            onClick={() => window.location.href = "https://forms.gle/S9r6AiTKSEu86FEH9"}
-            className="inline-flex h-12 font-semibold animate-shimmer items-center justify-center rounded-full border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-16 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
+          </a>
+          <a
+            href={siteLinks.learners}
+            className="inline-flex h-12 font-semibold animate-shimmer items-center justify-center rounded-full border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-8 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
           >
             Sign Up
-          </button>
+          </a>
         </div>
       </div>
-    </BackgroundBeamsWithCollision>
+    </BackgroundBeamsWithCollision></section>
   );
 }

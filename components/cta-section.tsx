@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "./ui/button";
+import { siteLinks } from "@/lib/site";
 
 function CTASection() {
   return (
@@ -9,22 +10,20 @@ function CTASection() {
           Ready to explore your passions?
         </h2>
         <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
-        Join a Community of Passionate Teen Learners—For Free! Dive into exciting subjects, discover new interests, and connect with peers who share and teach what they love!
+        Join Hoobit to explore a new interest, learn with other students, or share a subject you enjoy. Our learner and mentor forms open in Google Forms.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-        <Button 
-          onClick={() => window.location.href = "https://forms.gle/fRZ2urgo2VZH3gLh8"}
-          className="bg-sky-500 hover:bg-sky-400 text-white font-semibold h-12 px-8 rounded-lg transition-colors"
+        <Button asChild
+          className="bg-sky-700 hover:bg-sky-600 text-white font-semibold h-12 px-8 rounded-lg transition-colors"
         >
-          Start exploring your passions
+          <a href={siteLinks.learners}>Start exploring your passions</a>
         </Button>
 
-        <Button 
-            onClick={() => window.location.href = "https://forms.gle/eoou3L5RzkhaUA9y6"}
+        <Button asChild
           variant="outline" 
           className="text-black border-slate-600 hover:bg-slate-200 h-12 px-8 rounded-lg transition-colors"
           >
-          Teacher Application
+          <a href={siteLinks.mentors}>Become a mentor</a>
         </Button>
 
         </div>
